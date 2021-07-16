@@ -14,6 +14,9 @@ object ApiVersionParser {
             throw IllegalArgumentException("Invalid Accept header")
         }
         val vendor = jsonMatcher.group(1)
+        if (vendor.isEmpty()) {
+            return 1
+        }
         val vendorMatcher = vendorPattern.matcher(vendor)
         if (!vendorMatcher.matches()) {
             throw IllegalArgumentException("Undefined API version")

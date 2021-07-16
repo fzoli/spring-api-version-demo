@@ -31,7 +31,7 @@ class ExampleRestApiControllerTest : BaseTest() {
     }
 
     @Test
-    fun `number - version 5 (unsupported version)`() {
+    fun `number - version 5 - unsupported version`() {
         accept = "application/vnd.api.v5+json"
         val response = restTemplate.getForEntity("$baseUrl/examples/number", ErrorMessage::class.java)
         Assertions.assertEquals("Unsupported API version", response.body?.error)
@@ -45,10 +45,10 @@ class ExampleRestApiControllerTest : BaseTest() {
     }
 
     @Test
-    fun `number - undefined version`() {
+    fun `number - undefined version - same as version 1`() {
         accept = "application/json"
-        val response = restTemplate.getForEntity("$baseUrl/examples/number", ErrorMessage::class.java)
-        Assertions.assertEquals("Unsupported API version", response.body?.error)
+        val response = restTemplate.getForEntity("$baseUrl/examples/number", Int::class.java)
+        Assertions.assertEquals(1, response.body)
     }
 
     @Test
@@ -66,7 +66,7 @@ class ExampleRestApiControllerTest : BaseTest() {
     }
 
     @Test
-    fun `custom - version 1 (unsupported version)`() {
+    fun `custom - version 1 - unsupported version`() {
         accept = "application/vnd.api.v1+json"
         val response = restTemplate.getForEntity("$baseUrl/examples/custom", ErrorMessage::class.java)
         Assertions.assertEquals("Unsupported API version", response.body?.error)
@@ -80,17 +80,17 @@ class ExampleRestApiControllerTest : BaseTest() {
     }
 
     @Test
-    fun `custom - version 5 (unsupported version)`() {
+    fun `custom - version 5 - unsupported version`() {
         accept = "application/vnd.api.v5+json"
         val response = restTemplate.getForEntity("$baseUrl/examples/custom", ErrorMessage::class.java)
         Assertions.assertEquals("Unsupported API version", response.body?.error)
     }
 
     @Test
-    fun `custom - undefined version`() {
+    fun `custom - undefined version - same as version 1 - unsupported version`() {
         accept = "application/json"
         val response = restTemplate.getForEntity("$baseUrl/examples/custom", ErrorMessage::class.java)
-        Assertions.assertEquals("Undefined API version", response.body?.error)
+        Assertions.assertEquals("Unsupported API version", response.body?.error)
     }
 
 }

@@ -33,7 +33,7 @@ class ExampleClientTest {
     }
 
     @Test
-    fun `unsupported version`() {
+    fun `numberV5 - unsupported version`() {
         Assertions.assertThrows(UnsupportedApiVersionException::class.java) {
             client.numberV5()
         }

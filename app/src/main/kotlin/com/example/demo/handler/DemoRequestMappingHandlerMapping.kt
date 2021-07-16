@@ -14,6 +14,9 @@ class DemoRequestMappingHandlerMapping : RequestMappingHandlerMapping() {
     private fun RequestMappingInfo.mutate(method: Method): RequestMappingInfo {
         val apiVersion = method.extractApiVersion() ?: return this
         val produces = producesCondition.expressions.map { it.toString() }.toMutableList().apply {
+            if (apiVersion == 1 && this.none { it.startsWith("application/json") }) {
+                add(0, "application/json")
+            }
             add(0, "application/vnd.api.v${apiVersion}+json")
         }
         return mutate()
